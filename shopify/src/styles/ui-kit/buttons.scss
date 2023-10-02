@@ -1,0 +1,51 @@
+/**
+ * ------------------------------------------------------------------------------
+ * UI-kit: Buttons
+ * - Used for quickly style buttons and make them consistent.
+ * ------------------------------------------------------------------------------
+*/
+
+/**
+  * Available styles:
+  * - General button style (.btn)
+  * - Primary button style (.btn .btn--primary)
+
+  * Example:
+
+  * <div class="button">
+  *  <a href="#" class="btn btn--primary">Click here</a>
+  * </div>
+*/
+
+.btn {
+  display: block;
+
+  width: fit-content;
+  margin: 0 auto;
+  padding: 16px 45px;
+
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-white);
+
+  background-color: var(--primary-green);
+  border-radius: 10px;
+
+  transition:  0.3s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  &--primary {
+    color: var(--color-white);
+    background-color: var(--primary-green);
+  }
+}
+
+[disabled] {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}

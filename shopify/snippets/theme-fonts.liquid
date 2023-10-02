@@ -5,3 +5,25 @@
   - Fonts that are guaranteed to display should preload/preconnect.
   ------------------------------------------------------------------------------
 {% endcomment %}
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'F37GingerRegular.woff' | asset_url }}"
+  type="font/woff"
+  crossorigin="anonymous"
+>
+
+{%- comment -%}
+  ------------------------------------------------------------------------------
+    Set @font-face properties where we can access Liquid
+  ------------------------------------------------------------------------------
+{%- endcomment -%}
+<style>
+  @font-face {
+    font-family: 'F37 Ginger';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('{{ "F37GingerRegular.woff" | asset_url }}') format('woff');
+  }
+</style>

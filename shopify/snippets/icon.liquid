@@ -1,0 +1,16 @@
+{% comment %}
+  Renders a specific vector icon for a given name.
+
+  - Minify big vector icons or vector logo using a tool like https://jakearchibald.github.io/svgomg
+
+  Accepts:
+    - icon: {string} Icon name or handle (required)
+
+  Usage:
+    {% render 'icon' with 'icon-name' %}
+{% endcomment %}
+
+{% if icon and icon != empty %}
+  {% case icon %}
+  {% endcase %}
+{% endif %}

@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "streetsidesoftware.code-spell-checker",
+    "wix.vscode-import-cost",
+    "Shopify.theme-check-vscode",
+    "aaron-bond.better-comments",
+    "esbenp.prettier-vscode"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "customSyntax": "postcss-scss",
+  "extends": ["stylelint-config-recommended", "stylelint-config-clean-order"],
+  "plugins": ["stylelint-order"],
+  "ignoreFiles": [
+    "src/assets/*.css"
+  ],
+  "rules": {
+    "at-rule-no-unknown": null,
+    "comment-no-empty": true,
+    "comment-whitespace-inside": "always",
+    "max-line-length": null,
+    "media-feature-name-no-unknown": [true, {
+      "ignoreMediaFeatureNames": ["prefers-reduced-motion"]
+    }],
+    "no-descending-specificity": null,
+    "rule-empty-line-before": ["always", {
+      "except": ["first-nested"],
+      "ignore": ["after-comment"]
+    }],
+    "selector-pseudo-element-colon-notation": "double",
+    "selector-max-compound-selectors": 3,
+    "declaration-block-no-duplicate-properties": true,
+    "declaration-block-no-duplicate-custom-properties": true,
+    "declaration-property-value-no-unknown": true
+  }
+}

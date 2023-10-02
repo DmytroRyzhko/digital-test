@@ -1,0 +1,60 @@
+{
+  "emmet.includeLanguages": {
+    "liquid": "html"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "shopifyLiquid.formatterDevPreview": true,
+  "[liquid]": {
+    "editor.defaultFormatter": "Shopify.theme-check-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "files.autoSave": "off",
+  "autoimport.filesToScan": "'./src/**/*.{js,jsx,ts,tsx}'",
+  "js/ts.implicitProjectConfig.checkJs": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "diffEditor.ignoreTrimWhitespace": true,
+  "editor.rulers": [80],
+  "files.associations": {
+    "*.scss.liquid": "scss",
+    "*.js.liquid": "javascript"
+  },
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "html.validate.scripts": false,
+  "html.validate.styles": false,
+  "eslint.experimental.useFlatConfig": true,
+  "eslint.format.enable": true,
+  "editor.stickyScroll.enabled": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "javascript.validate.enable": true,
+  "typescript.validate.enable": true,
+  "cSpell.showAutocompleteSuggestions": true,
+  "[scss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "stylelint.enable": true,
+  "stylelint.snippet": ["css", "less", "postcss", "scss"],
+  "stylelint.validate": ["css", "less", "postcss", "scss"],
+  "editor.formatOnType": true,
+  "search.exclude": {
+    ".git": true,
+    "package-lock.json": true
+  }
+}

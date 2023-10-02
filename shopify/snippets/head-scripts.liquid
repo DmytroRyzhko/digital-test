@@ -1,0 +1,11 @@
+{% comment %}
+  Run specific scripts before page load.
+
+  Usage:
+  {%- render 'head-scripts' -%}
+{% endcomment %}
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+  window.addEventListener('load', () => document.documentElement.classList.add('ready'));
+</script>

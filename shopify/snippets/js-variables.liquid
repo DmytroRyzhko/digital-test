@@ -1,0 +1,31 @@
+{% comment %}
+  ------------------------------------------------------------------------------
+  Snippet: JavaScript variables
+  - Helper snippet to pass Liquid variables over to Javascript.
+  ------------------------------------------------------------------------------
+
+  Usage:
+    {%- render 'js-variables' -%}
+{% endcomment %}
+
+<script type="text/javascript">
+  window.currency = '{{ cart.currency.symbol | escape }}';
+  window.shopUrl = '{{ shop.url }}';
+  window.routes = {
+    cart: '{{ routes.cart_url }}',
+    cartJS: '{{ routes.cart_url }}.js',
+    cartAdd: '{{ routes.cart_add_url }}',
+    cartAddJS: '{{ routes.cart_add_url }}.js',
+    cartChange: '{{ routes.cart_change_url }}',
+    cartChangeJS: '{{ routes.cart_change_url }}.js',
+    cartUpdate: '{{ routes.cart_update_url }}',
+    cartUpdateJS: '{{ routes.cart_update_url }}.js',
+    predictiveSearch: '{{ routes.predictive_search_url }}',
+    recommendations: '{{ routes.product_recommendations_url }}',
+  };
+
+  window.cartStrings = {
+    error: `{{ 'sections.cart.cart_error' | t }}`,
+    quantityError: `{{ 'sections.cart.cart_quantity_error' | t }}`,
+  };
+</script>

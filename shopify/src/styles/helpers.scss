@@ -1,0 +1,17 @@
+body.locked {
+  position: fixed;
+  top: var(--body-top-position);
+  overflow: hidden;
+  width: 100%;
+}
+
+.hide-scroll-bar {
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
+}

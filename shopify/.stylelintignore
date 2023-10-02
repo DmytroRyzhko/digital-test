@@ -1,0 +1,4 @@
+assets/*.css
+src/styles/vendor/**/*
+.stylelintrc
+**/*.liquid

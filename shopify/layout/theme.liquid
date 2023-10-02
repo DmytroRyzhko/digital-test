@@ -1,0 +1,26 @@
+<!doctype html>
+<html class="no-js" lang="{{- request.locale.iso_code -}}">
+  <head>
+    {%- liquid
+      render 'head-meta-tags'
+      render 'head-seo'
+      render 'head-links'
+      render 'head-scripts'
+      render 'theme-fonts'
+      render 'css-variables'
+    -%}
+
+    {{ content_for_header }}
+  </head>
+
+  <body>
+    <main id="mainContent" role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {%- liquid
+      render 'js-variables'
+      render 'theme-scripts'
+    -%}
+  </body>
+</html>

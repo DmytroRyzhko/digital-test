@@ -1,0 +1,8 @@
+{% comment %}
+  Renders all scripts (including third-party apps) which are necessary for the functioning of the website.
+
+  Usage:
+  {%- render 'theme-scripts' -%}
+{% endcomment %}
+
+<script src="{{- 'index.js' | asset_url -}}" defer="defer"></script>

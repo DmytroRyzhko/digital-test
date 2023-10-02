@@ -1,0 +1,111 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Starter",
+    "theme_version": "1.0.0",
+    "theme_author": "DmytroRyzhko",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "t:settings_schema.typography.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.typography.settings.header_headings.content"
+      },
+      {
+        "type": "font_picker",
+        "id": "fonts_header",
+        "default": "sans-serif",
+        "label": "t:settings_schema.typography.settings.fonts_header.label",
+        "info": "t:settings_schema.typography.settings.fonts_header.info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.typography.settings.header_body.content"
+      },
+      {
+        "type": "font_picker",
+        "id": "fonts_body",
+        "default": "sans-serif",
+        "label": "t:settings_schema.typography.settings.fonts_body.label",
+        "info": "t:settings_schema.typography.settings.fonts_body.info"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.social_media.name",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.social_media.settings.header.content"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "t:settings_schema.social_media.settings.social_twitter_link.label",
+        "info": "t:settings_schema.social_media.settings.social_twitter_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "t:settings_schema.social_media.settings.social_facebook_link.label",
+        "info": "t:settings_schema.social_media.settings.social_facebook_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "t:settings_schema.social_media.settings.social_pinterest_link.label",
+        "info": "t:settings_schema.social_media.settings.social_pinterest_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "t:settings_schema.social_media.settings.social_instagram_link.label",
+        "info": "t:settings_schema.social_media.settings.social_instagram_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "t:settings_schema.social_media.settings.social_tiktok_link.label",
+        "info": "t:settings_schema.social_media.settings.social_tiktok_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": "t:settings_schema.social_media.settings.social_tumblr_link.label",
+        "info": "t:settings_schema.social_media.settings.social_tumblr_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "t:settings_schema.social_media.settings.social_snapchat_link.label",
+        "info": "t:settings_schema.social_media.settings.social_snapchat_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "t:settings_schema.social_media.settings.social_youtube_link.label",
+        "info": "t:settings_schema.social_media.settings.social_youtube_link.info"
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": "t:settings_schema.social_media.settings.social_vimeo_link.label",
+        "info": "t:settings_schema.social_media.settings.social_vimeo_link.info"
+      }
+    ]
+  },
+  {
+    "name": "t:settings_schema.favicon.name",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "t:settings_schema.favicon.settings.favicon.label",
+        "info": "t:settings_schema.favicon.settings.favicon.info"
+      }
+    ]
+  }
+]

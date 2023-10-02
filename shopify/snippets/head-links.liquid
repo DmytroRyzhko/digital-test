@@ -1,0 +1,37 @@
+{% comment %}
+  Renders all related links in the head.
+
+  Usage:
+  {%- render 'head-links' -%}
+{% endcomment %}
+
+<link rel="canonical" href="{{ canonical_url }}">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+{%- unless settings.fonts_header.system? and settings.fonts_body.system? -%}
+  <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+{%- endunless -%}
+
+{%- unless settings.fonts_header.system? -%}
+  <link
+    rel="preload"
+    href="{{ settings.fonts_header | font_url }}"
+    type="font/woff2"
+    as="font"
+    crossorigin
+  >
+{%- endunless -%}
+
+{%- unless settings.fonts_body.system? -%}
+  <link
+    rel="preload"
+    href="{{ settings.fonts_body | font_url }}"
+    type="font/woff2"
+    as="font"
+    crossorigin
+  >
+{%- endunless -%}
+{{ 'index.css' | asset_url | preload_tag: as: 'style' }}
+{{ 'index.js' | asset_url | preload_tag: as: 'script' }}
+
+{{ 'index.css' | asset_url | stylesheet_tag }}

@@ -1,0 +1,74 @@
+{% comment %}
+  ------------------------------------------------------------------------------
+  Snippet: CSS variables
+  - Helper snippet to declare CSS custom properties using both Liquid settings
+  and CSS predefined values, based on UI-kit.
+  ------------------------------------------------------------------------------
+
+  Usage:
+  {%- render 'css-variables' -%}
+{% endcomment %}
+
+<style>
+  :root {
+    /**
+     * Fonts.
+     */
+    --font-family-heading: 'F37 Ginger';
+    --font-family-body: 'F37 Ginger';
+
+    /**
+     * Colors.
+     */
+    --color-white: rgba(255, 255, 255, 1); /* #FFFFFF */
+    --color-black: rgba(0, 0, 0, 1); /* #000000 */
+
+    --primary-black: #363636;
+    --primary-green: #00afa9;
+    --secondary-green: #dffffd;
+    --border-color: #d7d2cc;
+
+    /**
+     * Container.
+     */
+    --container-width: 1440px;
+
+    /**
+     * Font-size. Scaled based on px to rem:
+     * - https://nekocalc.com/px-to-rem-converter
+     */
+    --font-size-xs: 0.75rem; /* 12px */
+    --font-size-s: 0.875rem; /* 14px */
+    --font-size-m: 1rem; /* 16px */
+    --font-size-l: 1.25rem; /* 20px */
+    --font-size-xl: 1.5rem; /* 24px */
+
+    /**
+     * Spacing.
+     */
+    --spacing-xxs: 0.25rem; /* 4px */
+    --spacing-xs: 0.5rem; /* 8px */
+    --spacing-s: 0.75rem; /* 12px */
+    --spacing-m: 1rem; /* 16px */
+    --spacing-l: 1.25rem; /* 20px */
+    --spacing-xl: 1.5rem; /* 24px */
+    --spacing-xxl: 2rem; /* 32px */
+
+    /**
+     * Icons.
+     */
+    --icon-size-s: 1.25rem; /* 20px */
+    --icon-size-m: 1.5rem; /* 24px */
+    --icon-size-l: 2rem; /* 32px */
+
+    /**
+     * Layers (use for `z-index`).
+     */
+    --layer-behind: -1;
+    --layer-base: 0;
+    --layer-flat: 1;
+    --layer-raised: 2;
+    --layer-overlay-background: 101;
+    --layer-overlay: 102;
+  }
+</style>

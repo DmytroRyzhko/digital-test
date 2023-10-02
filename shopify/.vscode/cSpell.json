@@ -1,0 +1,34 @@
+{
+  "words": [
+    "alpinejs",
+    "camelcase",
+    "crossorigin",
+    "endcomment",
+    "endschema",
+    "endstyle",
+    "endunless",
+    "lazyload",
+    "listbox",
+    "metafield",
+    "metafields",
+    "nocheck",
+    "outdir",
+    "preconnect",
+    "rgba",
+    "shopify",
+    "storefront",
+    "stylelint",
+    "tabindex",
+    "wishlist"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    "*.config.js",
+    "*.json",
+    "*.yml"
+  ]
+}

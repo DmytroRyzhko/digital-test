@@ -1,7 +1,7 @@
 {% comment %}
   ------------------------------------------------------------------------------
     Section: Product List
-    - Section that displays list of products with carousel on mobile.
+    - Section that displays list of products within carousel.
   ------------------------------------------------------------------------------
 {% endcomment %}
 {{ 'component.product-item.css' | asset_url | stylesheet_tag }}
@@ -286,8 +286,8 @@
       "label": "Font Size (Desktop)",
       "unit": "px",
       "min": 8,
-      "max": 200,
-      "step": 2,
+      "max": 100,
+      "step": 1,
       "default": 16
     },
     {
@@ -296,8 +296,8 @@
       "label": "Font Size (Mobile)",
       "unit": "px",
       "min": 8,
-      "max": 200,
-      "step": 2,
+      "max": 100,
+      "step": 1,
       "default": 16
     },
     {
@@ -342,8 +342,8 @@
       "label": "Font Size (Desktop)",
       "unit": "px",
       "min": 8,
-      "max": 200,
-      "step": 2,
+      "max": 100,
+      "step": 1,
       "default": 16
     },
     {
@@ -352,8 +352,8 @@
       "label": "Font Size (Mobile)",
       "unit": "px",
       "min": 8,
-      "max": 200,
-      "step": 2,
+      "max": 100,
+      "step": 1,
       "default": 16
     },
     {
@@ -410,7 +410,6 @@
     {
       "type": "product_block",
       "name": "Product",
-      "limit": 4,
       "settings": [
         {
           "type": "header",

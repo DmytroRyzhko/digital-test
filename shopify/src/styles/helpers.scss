@@ -1,8 +1,16 @@
-body.locked {
-  position: fixed;
-  top: var(--body-top-position);
-  overflow: hidden;
-  width: 100%;
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+
+  @media screen and (width >= 1024px) {
+    padding: 0 60px;
+  }
+
+  @media screen and (width >= 1440px) {
+    padding: 0 90px;
+
+  }
 }
 
 .hide-scroll-bar {
@@ -15,3 +23,19 @@ body.locked {
     width: 0;
   }
 }
+
+.text-left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.text-center {
+  align-items: center;
+  text-align: center;
+}
+
+.text-right {
+  align-items: flex-end;
+  text-align: right;
+}
+

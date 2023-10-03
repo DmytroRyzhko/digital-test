@@ -1,7 +1,10 @@
 /* stylelint-disable no-invalid-position-at-import-rule */
 @use 'scss-reset/reset';
 
+@import "swiper/swiper";
+
 @import './helpers';
 
 @import './ui-kit/typography.scss';
 @import './ui-kit/buttons.scss';
+

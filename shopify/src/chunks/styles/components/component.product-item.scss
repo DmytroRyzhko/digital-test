@@ -1,0 +1,119 @@
+/**
+ * Component: Product Item
+ * -----------------------------------------------------------------------------
+ * - Styles for Product Card used in sliders etc.
+ */
+.product-item {
+  $parent: &;
+
+  position: relative;
+  transition: 0.3s all ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--product-card-hover);
+
+    @media (hover: hover) and (pointer: fine) {
+      .product-item__label {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__link {
+    &:empty {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__image {
+    img {
+      aspect-ratio: 270/217;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    line-height: 1.3;
+    text-align: right;
+
+    visibility: hidden;
+    opacity: 0;
+
+    transition: 0.3s all ease-in-out;
+  }
+
+  &__daily-price {
+    font-size: 28px;
+  }
+
+  &__daily-text {
+    font-size: 18px;
+  }
+
+  &__media-wrapper {
+    margin-bottom: 10px;
+    padding: 60px 20px 15px;
+    border-radius: 20px;
+    transition: 0.3s all ease-in-out;
+  }
+
+  &__tags-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__tag {
+    display: flex;
+    align-items: center;
+
+    padding: 8px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    &:first-child {
+      margin-right: 15px;
+    }
+
+    span {
+      font-size: 16px;
+      line-height: 1.2;
+    }
+  }
+
+  &__info {
+    text-align: center;
+  }
+
+  &__title {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+    line-height: 1.32;
+  }
+
+  @media screen and (width >= 1024px) {
+    &__title {
+      font-size: 18px;
+    }
+  }
+}

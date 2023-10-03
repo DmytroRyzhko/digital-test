@@ -31,7 +31,7 @@
   background-color: var(--primary-green);
   border-radius: 10px;
 
-  transition:  0.3s ease-in-out;
+  transition: 0.3s all ease-in-out;
 
   &:hover {
     cursor: pointer;
@@ -41,6 +41,17 @@
   &--primary {
     color: var(--color-white);
     background-color: var(--primary-green);
+  }
+}
+
+a {
+  color: var(--primary-black);
+  text-decoration: none;
+  transition: 0.3s all ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
   }
 }
 

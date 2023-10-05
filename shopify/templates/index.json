@@ -1,8 +1,152 @@
 {
   "sections": {
-    "main": {
-      "type": "main"
+    "6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb": {
+      "type": "product-list",
+      "blocks": {
+        "template--21378936570156__6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb-product_block-1": {
+          "type": "product_block",
+          "settings": {
+            "product": "pocketful-of-sunshine",
+            "product_title": "Immunity",
+            "color_hover": "#FFF9C0",
+            "first_tag_svg": "immunity",
+            "first_tag_text": "immunity",
+            "second_tag_svg": "stress",
+            "second_tag_text": "stress"
+          }
+        },
+        "template--21378936570156__6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb-product_block-2": {
+          "type": "product_block",
+          "settings": {
+            "product": "cloud-nine",
+            "product_title": "",
+            "color_hover": "#FFF9C0",
+            "first_tag_svg": "mobility",
+            "first_tag_text": "mobility",
+            "second_tag_svg": "stress",
+            "second_tag_text": "stress"
+          }
+        },
+        "template--21378936570156__6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb-product_block-3": {
+          "type": "product_block",
+          "settings": {
+            "product": "heart-minds",
+            "product_title": "",
+            "color_hover": "#FFF9C0",
+            "first_tag_svg": "heart",
+            "first_tag_text": "heart",
+            "second_tag_svg": "energy",
+            "second_tag_text": "energy"
+          }
+        },
+        "8e57489e-522f-4e1a-8252-4d253f7b3f97": {
+          "type": "product_block",
+          "settings": {
+            "product": "in-the-zone",
+            "product_title": "",
+            "color_hover": "#FFF9C0",
+            "first_tag_svg": "brain",
+            "first_tag_text": "brain",
+            "second_tag_svg": "energy",
+            "second_tag_text": "energy"
+          }
+        }
+      },
+      "block_order": [
+        "template--21378936570156__6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb-product_block-1",
+        "template--21378936570156__6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb-product_block-2",
+        "template--21378936570156__6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb-product_block-3",
+        "8e57489e-522f-4e1a-8252-4d253f7b3f97"
+      ],
+      "settings": {
+        "section_padding_top": 50,
+        "section_padding_bottom": 30,
+        "section_padding_top_desktop": 132,
+        "section_padding_bottom_desktop": 132,
+        "bg_color": "",
+        "heading_text": "Have you had your daily dose of vit today?",
+        "heading_type": "h2",
+        "heading_text_font_size_desktop": 40,
+        "heading_text_font_size_mobile": 34,
+        "heading_text_align": "text-center",
+        "heading_text_color": "",
+        "description_text": "Whether you need a daily pick-me up or a little sleep support, our products are developed with the end goal in mind. Optimally-dosed, highly bioavailable formulas means you can see and feel results that set you on a path to better health.",
+        "description_text_font_size_desktop": 16,
+        "description_text_font_size_mobile": 16,
+        "description_text_align": "text-center",
+        "cta_text": "See All Products",
+        "cta_url": "shopify:\/\/collections",
+        "cta_style": "btn--primary"
+      }
+    },
+    "23b4bdf6-5b61-4649-aecc-d81ae4b964fd": {
+      "type": "reviews",
+      "blocks": {
+        "dacb6a30-f514-45d3-8741-2f1f885a9ef9": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify:\/\/shop_images\/Amber.png",
+            "bg_review": "#DFFFFD",
+            "rating": 4,
+            "bg_star": "#00AFA9",
+            "title": "Walking on Sunshine",
+            "description": "<p>“These little softgels have helped boost my mood and keep me in a positive head space during all the chaos of everyone coming back to work since covid. I suffer from anxiety and depression and this has helped”<\/p>",
+            "author": "Amber",
+            "product": "pocketful-of-sunshine",
+            "bg_bottom": "#00AFA9"
+          }
+        },
+        "0eeb8b55-0251-4a14-8887-a2325387deba": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify:\/\/shop_images\/Aicia.png",
+            "bg_review": "#DFFFFD",
+            "rating": 5,
+            "bg_star": "#00AFA9",
+            "title": "Complete one Eighty in the Mood Department",
+            "description": "<p>“I’ve been one to get frustrated easily while dealing with stressful situations, either while working or with people. But I got annoyed with feeling this way, so I decided to look online and see what  I could find. Came across these and ...”<\/p>",
+            "author": "Aicia",
+            "product": "cloud-nine",
+            "bg_bottom": "#00AFA9"
+          }
+        },
+        "68ebe4cb-23a7-4892-9e94-909e6e3d8305": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify:\/\/shop_images\/Amber_2.png",
+            "bg_review": "#DFFFFD",
+            "rating": 5,
+            "bg_star": "#00AFA9",
+            "title": "Love this!!!",
+            "description": "<p>“I love this vitamin, it is so tiny but packs a major punch! This has helped massively with my anxiety and has helped boost me up a little too!”<\/p>",
+            "author": "Amber",
+            "product": "heart-minds",
+            "bg_bottom": "#00AFA9"
+          }
+        }
+      },
+      "block_order": [
+        "dacb6a30-f514-45d3-8741-2f1f885a9ef9",
+        "0eeb8b55-0251-4a14-8887-a2325387deba",
+        "68ebe4cb-23a7-4892-9e94-909e6e3d8305"
+      ],
+      "settings": {
+        "section_padding_top": 40,
+        "section_padding_bottom": 80,
+        "section_padding_top_desktop": 60,
+        "section_padding_bottom_desktop": 160,
+        "bg_color": "",
+        "heading_text": "Why People Love Us",
+        "heading_type": "h2",
+        "heading_text_font_size_desktop": 34,
+        "heading_text_font_size_mobile": 30,
+        "heading_text_align": "text-center",
+        "heading_text_color": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "6cdc5ca0-c27a-4e06-a8d7-4059e0580ceb",
+    "23b4bdf6-5b61-4649-aecc-d81ae4b964fd"
+  ]
 }

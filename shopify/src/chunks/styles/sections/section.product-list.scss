@@ -37,16 +37,17 @@
     margin-top: 40px;
   }
 
-  &__slider-pagination {
+  &__pagination {
     display: flex;
+    gap: 20px;
     align-items: center;
     justify-content: center;
+
     margin-top: 20px;
 
     .swiper-pagination-bullet {
       width: 10px;
       height: 10px;
-      margin-right: 20px;
 
       opacity: 1;
       background-color: transparent;

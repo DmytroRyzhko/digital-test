@@ -1,0 +1,410 @@
+{% comment %}
+  ------------------------------------------------------------------------------
+  Section: Reviews
+  - Section that displays list of reviews within carousel.
+  ------------------------------------------------------------------------------
+{% endcomment %}
+{{ 'section.reviews.css' | asset_url | stylesheet_tag }}
+
+{% assign ss = section.settings %}
+
+{% capture css_variables %}
+  --section-padding-top: {{ ss.section_padding_top }}px;
+  --section-padding-top-desktop: {{ ss.section_padding_top_desktop }}px;
+  --section-padding-bottom: {{ ss.section_padding_bottom }}px;
+  --section-padding-bottom-desktop: {{ ss.section_padding_bottom_desktop }}px;
+  --section-background: {{ ss.bg_color }};
+
+  {% if ss.heading_text != blank %}
+    --heading-font-size-desktop: {{ ss.heading_text_font_size_desktop }}px;
+    --heading-font-size-mobile: {{ ss.heading_text_font_size_mobile }}px;
+    --heading-color: {{ ss.heading_text_color }};
+  {% endif %}
+
+{% endcapture %}
+
+<section
+  aria-labelledby="section-title-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  style="{{ css_variables | strip_newlines }}"
+>
+  <div class="reviews container">
+    {% if ss.heading_text %}
+      <{{ ss.heading_type }}
+        id="section-title-{{ section.id }}"
+        class="reviews__heading {{ ss.heading_text_align }}"
+      >
+        {{- ss.heading_text -}}
+      </{{ ss.heading_type }}>
+    {% endif %}
+    <div class="reviews__wrapper">
+      {% if section.blocks.size > 1 %}
+        <div class="reviews-slider__prev reviews-slider__prev--{{ section.id }}">
+          {% render 'icon' with 'chevron-right' %}
+        </div>
+      {% endif %}
+      <div
+        class="reviews-slider swiper {% if section.blocks.size > 1 %}reviews-slider__{{ section.id }}{% endif %}"
+      >
+        <ul class="reviews__slides swiper-wrapper">
+          {% for block in section.blocks %}
+            {% assign bs = block.settings %}
+            {% capture block_css_variables %}
+              --bg-review-color: {{ bs.bg_review }};
+              --bg-star-color: {{ bs.bg_star }};
+              --bg-bottom-color: {{ bs.bg_bottom }};
+            {% endcapture %}
+            <li
+              class="reviews__slide swiper-slide"
+              style="{{ block_css_variables | strip_newlines }}"
+            >
+              <div class="reviews__inner">
+                {% if bs.avatar != blank %}
+                  <div class="reviews__avatar">
+                    {% render 'image', image: bs.avatar %}
+                  </div>
+                {% endif %}
+                <div>
+                  <div class="reviews__stars">
+                    {% for i in (1..5) %}
+                      <div class="reviews__star {% if forloop.index > bs.rating %} empty{% endif %}">
+                        {% render 'icon' with 'star' %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                  {% if bs.title != blank %}
+                    <div class="reviews__title">
+                      {{ bs.title }}
+                    </div>
+                  {% endif %}
+                  {% if bs.description != blank %}
+                    <div class="reviews__description">
+                      {{ bs.description }}
+                    </div>
+                  {% endif %}
+                </div>
+                {% if bs.author != blank %}
+                  <div class="reviews__author">
+                    {{ bs.author }}
+                  </div>
+                {% endif %}
+              </div>
+              {% if bs.product %}
+                {% assign product = bs.product %}
+                <a href="{{ product.url }}" class="reviews__bottom-bar">
+                  <div class="reviews__product-image">
+                    {% render 'image', image: product.featured_image %}
+                  </div>
+                  <div class="reviews__product-title">
+                    {{ product.title }}
+                  </div>
+                  <div class="reviews__arrow">
+                    {% render 'icon' with 'arrow' %}
+                  </div>
+                </a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+        <div
+          class="reviews-slider__pagination reviews-slider__pagination--{{ section.id }}"
+        ></div>
+      </div>
+      {% if section.blocks.size > 1 %}
+        <div class="reviews-slider__next reviews-slider__next--{{ section.id }}">
+          {% render 'icon' with 'chevron-right' %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    let reviewsSlider = null;
+
+    const reviewsSliderOptions = {
+      slidesPerView: 1,
+      pagination: {
+        el: '.reviews-slider__pagination--{{ section.id }}',
+        type: 'bullets',
+      },
+      navigation: {
+        nextEl: '.reviews-slider__next--{{ section.id }}',
+        prevEl: '.reviews-slider__prev--{{ section.id }}',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 2.5,
+          spaceBetween: 40,
+        },
+        1440: {
+          slidesPerView: 3,
+          spaceBetween: 60,
+        },
+      },
+    };
+
+    reviewsSlider = new window.Swiper(
+      '.reviews-slider__{{ section.id }}',
+      reviewsSliderOptions,
+    );
+
+    /* reinitialize slider while making changes in customize (optional) */
+    if (window.Shopify.designMode) {
+      window.addEventListener('shopify:section:load', () => {
+        if (!reviewsSlider) {
+          return;
+        }
+
+        // Destroy the existing slider
+        reviewsSlider.destroy();
+
+        // Initialize a new Swiper instance
+        reviewsSlider = new window.Swiper(
+          '.reviews-slider__{{ section.id }}',
+          reviewsSliderOptions,
+        );
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Reviews Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Padding Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Section Padding: top (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Section Padding: bottom (Mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Section Padding: top (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Section Padding: bottom (Desktop)",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section Appearance Settings"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "header",
+      "content": "Heading Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text"
+    },
+    {
+      "type": "select",
+      "id": "heading_type",
+      "label": "Heading type",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ],
+      "default": "h2",
+      "info": "Select the [heading type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements) of this text."
+    },
+    {
+      "type": "range",
+      "id": "heading_text_font_size_desktop",
+      "label": "Font Size (Desktop)",
+      "unit": "px",
+      "min": 8,
+      "max": 100,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "heading_text_font_size_mobile",
+      "label": "Font Size (Mobile)",
+      "unit": "px",
+      "min": 8,
+      "max": 100,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "heading_text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right",
+          "label": "Right"
+        }
+      ],
+      "default": "text-left",
+      "info": "Select the horizontal alignment of text."
+    },
+    {
+      "type": "color",
+      "id": "heading_text_color",
+      "label": "Text Color"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Review",
+      "type": "review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "User Photo"
+        },
+        {
+          "type": "color",
+          "id": "bg_review",
+          "label": "Review Block Background",
+          "default": "#DFFFFD"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "unit": "★",
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "color",
+          "id": "bg_star",
+          "label": "Star Color",
+          "default": "#00AFA9"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        },
+        {
+          "type": "header",
+          "content": "Product",
+          "info": "Select the product for which the review was added"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "color",
+          "id": "bg_bottom",
+          "label": "Bottom Bar Background",
+          "default": "#00AFA9"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -58,8 +58,8 @@
             {% assign bs = block.settings %}
 
             {% capture block_css_variables %}
-                --product-card-hover: {{ bs.color_hover }};
-              {% endcapture %}
+              --product-card-hover: {{ bs.color_hover }};
+            {% endcapture %}
 
             <li
               class="product-item swiper-slide"
@@ -145,37 +145,46 @@
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    const productListSlider = new window.Swiper(
-      '.product-list-slider__{{ section.id }}',
-      {
-        slidesPerView: 1,
-        pagination: {
-          el: '.product-list__pagination--{{ section.id }}',
-          type: 'bullets',
+    let productListSlider = null;
+
+    const productListSliderOptions = {
+      slidesPerView: 1,
+      pagination: {
+        el: '.product-list__pagination--{{ section.id }}',
+        type: 'bullets',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 15,
         },
-        breakpoints: {
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 15,
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 25,
-          },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 25,
         },
       },
+    };
+
+    productListSlider = new window.Swiper(
+      '.product-list-slider__{{ section.id }}',
+      productListSliderOptions,
     );
 
-    /* reinitializing slider while making changes in customize (optional) */
+    /* reinitialize slider while making changes in customize (optional) */
     if (window.Shopify.designMode) {
-      document.addEventListener('shopify:section:load', () => {
-        productListSlider.init();
-      });
-      document.addEventListener('shopify:block:select', () => {
-        productListSlider.init();
-      });
-      document.addEventListener('shopify:block:deselect', () => {
-        productListSlider.init();
+      window.addEventListener('shopify:section:load', () => {
+        if (!productListSlider) {
+          return;
+        }
+
+        // Destroy the existing slider
+        productListSlider.destroy();
+
+        // Initialize a new Swiper instance
+        productListSlider = new window.Swiper(
+          '.product-list-slider__{{ section.id }}',
+          productListSliderOptions,
+        );
       });
     }
   });

@@ -26,7 +26,7 @@
   {% if image != blank %}
     {{
       image
-      | image_url: width: 500
+      | image_url: width: image.width
       | image_tag:
         alt: image_alt,
         class: 'w-full h-full object-cover object-center rounded',

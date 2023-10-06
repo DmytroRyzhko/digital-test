@@ -1,4 +1,2 @@
 package.json
 package-lock.json
-config/settings_data.json
-templates/*.json

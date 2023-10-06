@@ -73,8 +73,6 @@ export function generateSessions() {
   return availableSessions;
 }
 
-
-
 /**
  * Formats a date string in a human-readable format.
  * @param {string} dateString - The date string in "YYYY-MM-DD" format.

@@ -42,7 +42,13 @@
   cursor: pointer;
 }
 
-.selected {
+.selected,
+.reserved {
   background-color: #00aaff;
   color: #fff;
+}
+
+.reserved {
+  opacity: 0.7;
+  pointer-events: none;
 }

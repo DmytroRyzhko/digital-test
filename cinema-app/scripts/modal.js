@@ -2,20 +2,24 @@ const modal = document.getElementById("myModal");
 const seatsContainer = document.getElementById("seats-container");
 const bookButton = document.getElementById("book-button");
 
+let selectedDate = "";
+let selectedSession = "";
+
+
 /**
  * Shows the modal window for seat selection and booking.
  * @param {string} session - The selected session time in "HH:00" format.
+ * @param {string} date - The selected date in "YYYY-MM-DD" format.
+ * @param {object} reservations - The reservations for the selected date and session.
  */
-export function openModal(session) {
-  if (!modal) {
-    return
+export function openModal(session, date, reservations) {
+  console.log('openModal reservations', reservations)
+
+  if (!modal || !seatsContainer) {
+    return;
   }
 
   modal.style.display = "block";
-
-  if (!seatsContainer) {
-    return
-  }
 
   // Clear the seats container content
   seatsContainer.innerHTML = "";
@@ -25,12 +29,22 @@ export function openModal(session) {
     const seat = document.createElement("div");
     seat.className = "seat";
     seat.textContent = i;
-    seat.addEventListener("click", () => {
-      // Event handler for seat selection
-      toggleSeat(seat);
-    });
+
+    // Check if the seat is reserved
+    if (reservations?.includes(String(i))) {
+      seat.classList.add("reserved");
+    } else {
+      seat.addEventListener("click", () => {
+        // Event handler for seat selection
+        toggleSeat(seat);
+      });
+    }
+
     seatsContainer.appendChild(seat);
   }
+
+  selectedDate = date;
+  selectedSession = session;
 }
 
 /**
@@ -39,19 +53,6 @@ export function openModal(session) {
 export function closeModal() {
   modal.style.display = "none";
 }
-
-// Add an event listener for the booking button
-bookButton.addEventListener("click", () => {
-  // Get the list of selected seats
-  const selectedSeats = Array.from(seatsContainer.querySelectorAll(".selected")).map(
-    (seat) => seat.textContent
-  );
-  // Here you can implement the logic for booking the selected seats
-  // For example, display them in the console
-  console.log("Selected seats:", selectedSeats);
-  // Close the modal window after booking
-  closeModal();
-});
 
 // Add an event listener for closing the modal window
 modal.querySelector(".close").addEventListener("click", () => {
@@ -65,3 +66,6 @@ modal.querySelector(".close").addEventListener("click", () => {
 export function toggleSeat(seat) {
   seat.classList.toggle("selected");
 }
+
+export { bookButton, modal, seatsContainer, selectedDate, selectedSession };
+

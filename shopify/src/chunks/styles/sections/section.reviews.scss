@@ -224,10 +224,6 @@
       border: 1px solid var(--primary-black);
       border-radius: 50%;
 
-      &:last-child {
-        margin-right: 0;
-      }
-
       &.swiper-pagination-bullet-active {
         background-color: var(--primary-green);
         border: 1px solid transparent;

@@ -7,31 +7,27 @@
   $parent: &;
 
   position: relative;
-  transition: 0.3s all ease-in-out;
+  background-color: rgba(0, 0, 0, 0);
+  transition: 0.3s opacity, background-color ease-in-out;
 
   &:hover {
-    cursor: pointer;
-    background-color: var(--product-card-hover);
-
     @media (hover: hover) and (pointer: fine) {
-      .product-item__label {
+      cursor: pointer;
+      background-color: var(--product-card-hover);
+
+      #{$parent}__label {
         visibility: visible;
+        opacity: 1;
+      }
+
+      #{$parent}__wrapper {
         opacity: 1;
       }
     }
   }
 
-  &__link {
-    &:empty {
-      position: absolute;
-      top: 0;
-      left: 0;
-
-      display: block;
-
-      width: 100%;
-      height: 100%;
-    }
+  &__wrapper {
+    display: block;
   }
 
   &__image {

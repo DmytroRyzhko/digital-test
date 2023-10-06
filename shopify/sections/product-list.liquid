@@ -65,66 +65,64 @@
               class="product-item swiper-slide"
               style="{{ block_css_variables | strip_newlines }}"
             >
+              {%- assign wrapper_tag = 'div' -%}
               {% if bs.product != blank %}
-                <a
-                  href="{{ bs.product.url }}"
-                  class="product-item__link"
-                ></a>
-                <div class="product-item__label">
-                  <p class="product-item__daily-price">
-                    {{ bs.product.price | divided_by: 30.00 | money }}
-                  </p>
-                  <p class="product-item__daily-text">/day</p>
-                </div>
+                {%- assign wrapper_tag = 'a' -%}
               {% endif %}
 
-              <div class="product-item__media-wrapper">
-                <div class="product-item__image">
-                  {% if bs.product_img != blank %}
-                    {% render 'image', image: bs.product_img %}
-                  {% elsif bs.product != blank %}
-                    {% render 'image', image: bs.product.featured_image %}
-                  {% else %}
-                    {{ 'image' | placeholder_svg_tag }}
-                  {% endif %}
-                </div>
-                <div class="product-item__tags-wrapper">
-                  {% if bs.first_tag_text %}
-                    <div class="product-item__tag">
-                      {% render 'icon', icon: bs.first_tag_svg %}
-                      <span>{{ bs.first_tag_text }}</span>
-                    </div>
-                  {% endif %}
-                  {% if bs.second_tag_text %}
-                    <div class="product-item__tag">
-                      {% render 'icon', icon: bs.second_tag_svg %}
-                      <span class="product-item__tag-title">
-                        {{- bs.second_tag_text -}}
-                      </span>
-                    </div>
-                  {% endif %}
-                </div>
-              </div>
-              <div class="product-item__info">
-                {% if bs.product_title != blank %}
-                  <a
-                    href="{{ bs.product.url | default: '#' }}"
-                    class="product-item__title"
-                  >
-                    {{ bs.product_title }}
-                  </a>
-                {% else %}
-                  <a
-                    href="{{ bs.product.url | default: '#' }}"
-                    class="product-item__title"
-                  >
-                    {{ bs.product.title }}
-                  </a>
+              <{{ wrapper_tag }}
+                href="{{ bs.product.url }}"
+                class="product-item__wrapper"
+              >
+                {% if bs.product != blank %}
+                  <div class="product-item__label">
+                    <p class="product-item__daily-price">
+                      {{ bs.product.price | divided_by: 30.00 | money }}
+                    </p>
+                    <p class="product-item__daily-text">/day</p>
+                  </div>
                 {% endif %}
-                <p class="product-item__price">
-                  {{ bs.product.price | money }}
-                </p>
-              </div>
+
+                <div class="product-item__media-wrapper">
+                  <div class="product-item__image">
+                    {% if bs.product_img != blank %}
+                      {% render 'image', image: bs.product_img %}
+                    {% else %}
+                      {% render 'image', image: bs.product.featured_image %}
+                    {% endif %}
+                  </div>
+                  <div class="product-item__tags-wrapper">
+                    {% if bs.first_tag_text %}
+                      <div class="product-item__tag">
+                        {% render 'icon', icon: bs.first_tag_svg %}
+                        <span>{{ bs.first_tag_text }}</span>
+                      </div>
+                    {% endif %}
+                    {% if bs.second_tag_text %}
+                      <div class="product-item__tag">
+                        {% render 'icon', icon: bs.second_tag_svg %}
+                        <span class="product-item__tag-title">
+                          {{- bs.second_tag_text -}}
+                        </span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="product-item__info">
+                  {% if bs.product_title != blank %}
+                    <h3 class="product-item__title">
+                      {{ bs.product_title }}
+                    </h3>
+                  {% else %}
+                    <h3 class="product-item__title">
+                      {{ bs.product.title }}
+                    </h3>
+                  {% endif %}
+                  <p class="product-item__price">
+                    {{ bs.product.price | money }}
+                  </p>
+                </div>
+              </{{ wrapper_tag }}>
             </li>
           {% endfor %}
         </ul>

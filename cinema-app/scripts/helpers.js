@@ -6,13 +6,19 @@
  */
 export function generateDates() {
   const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset hours, minutes, seconds, and milliseconds to 00:00:00
   const oneWeekLater = new Date(today);
-
-  oneWeekLater.setDate(today.getDate() + 7); // Add 1 week
+  oneWeekLater.setDate(today.getDate() + 7); // Add 7 days to the current date
   const dates = [];
 
   while (today < oneWeekLater) {
-    dates.push(today.toISOString().split('T')[0]);
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const day = today.getDate();
+
+    const isoDate = `${year}-${month < 10 ? "0" : ""}${month}-${day < 10 ? "0" : ""}${day}`;
+    dates.push(isoDate);
+
     today.setDate(today.getDate() + 1); // Move to the next date
   }
 
@@ -31,6 +37,7 @@ export function generateSessions() {
   const minutesInHour = 60;
   const currentHour = now.getHours();
   const currentMinute = now.getMinutes();
+  console.log({ currentHour, currentMinute });
   let startTime;
 
   const availableSessions = {};
@@ -47,22 +54,24 @@ export function generateSessions() {
         // Otherwise, round up to the next odd hour
         startTime = currentHour + 1;
       }
+
+      // Ensure that the start time is within the range [10, 20]
+      if (startTime < 10) {
+        startTime = 10;
+      } else if (startTime > 20) {
+        // Skip today's date if it's after 20:00
+        return;
+      }
     } else {
       // For other dates, start from 10:00
       startTime = 10;
-    }
-
-    // Check if the current time is after 20:00
-    if (index === 0 && currentHour >= 20) {
-      // Skip today's date if it's after 20:00
-      return;
     }
 
     const endTime = 20; // End time for sessions
     const sessions = [];
 
     while (startTime <= endTime) {
-      const sessionTime = `${startTime}:00`;
+      const sessionTime = `${startTime < 10 ? "0" : ""}${startTime}:00`;
       sessions.push(sessionTime);
       startTime += interval;
     }
@@ -72,7 +81,6 @@ export function generateSessions() {
 
   return availableSessions;
 }
-
 /**
  * Formats a date string in a human-readable format.
  * @param {string} dateString - The date string in "YYYY-MM-DD" format.
@@ -96,4 +104,16 @@ export function isToday(date) {
     today.getMonth() === selectedDate.getMonth() &&
     today.getDate() === selectedDate.getDate()
   );
+}
+
+/**
+ * Filters an array to keep only the unique elements.
+ *
+ * @param {*} value - The current value being processed in the array.
+ * @param {number} index - The index of the current value within the array.
+ * @param {Array} array - The array that the `value` belongs to.
+ * @returns {boolean} `true` if the `value` is unique in the array, `false` otherwise.
+ */
+export function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
 }

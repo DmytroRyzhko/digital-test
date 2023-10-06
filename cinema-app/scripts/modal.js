@@ -1,10 +1,11 @@
+const MAX_SEATS_QUANTITY = 25
+
 const modal = document.getElementById("myModal");
 const seatsContainer = document.getElementById("seats-container");
 const bookButton = document.getElementById("book-button");
 
 let selectedDate = "";
 let selectedSession = "";
-
 
 /**
  * Shows the modal window for seat selection and booking.
@@ -25,7 +26,7 @@ export function openModal(session, date, reservations) {
   seatsContainer.innerHTML = "";
 
   // Create seats
-  for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= MAX_SEATS_QUANTITY; i++) {
     const seat = document.createElement("div");
     seat.className = "seat";
     seat.textContent = i;
@@ -67,5 +68,5 @@ export function toggleSeat(seat) {
   seat.classList.toggle("selected");
 }
 
-export { bookButton, modal, seatsContainer, selectedDate, selectedSession };
+export { MAX_SEATS_QUANTITY, bookButton, modal, seatsContainer, selectedDate, selectedSession };
 

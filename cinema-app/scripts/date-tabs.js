@@ -1,6 +1,6 @@
 import { getReservationFromCookies, saveReservationToCookies } from './cookies.js';
-import { formatDate, generateDates, generateSessions, isToday } from './helpers.js';
-import { bookButton, closeModal, openModal, seatsContainer, selectedDate, selectedSession } from './modal.js';
+import { formatDate, generateDates, generateSessions, isToday, onlyUnique } from './helpers.js';
+import { MAX_SEATS_QUANTITY, bookButton, closeModal, openModal, seatsContainer, selectedDate, selectedSession } from './modal.js';
 
 const dateTabsContainer = document.getElementById("date-tabs");
 const selectedDateContainer = document.getElementById("selected-date");
@@ -40,6 +40,7 @@ if (existingReservationData) {
 * Generates and displays date tabs for ticket booking.
 */
 function createTabs() {
+  console.log('createTabs DATES', reservationData.dates)
   reservationData.dates?.forEach((date) => {
     const tab = document.createElement("button");
     tab.textContent = formatDate(date);
@@ -83,11 +84,19 @@ function selectDate(date) {
     sessionsForDate.forEach((session) => {
       const sessionItem = document.createElement("li");
       sessionItem.textContent = session;
-      sessionItem.addEventListener('click', () => {
-        const reservations = reservationData.reservations[date]?.[session] || [];
-        openModal(session, date, reservations); // Pass session, date and reservations to openModal
-      });
+      const reservations = reservationData.reservations[date]?.[session] || [];
+
+      if (reservations.length >= MAX_SEATS_QUANTITY) {
+        sessionItem.className = 'booked'
+      }
+
       sessionsList.appendChild(sessionItem);
+
+      sessionItem.addEventListener('click', () => {
+        console.log('selectDate click reservations', reservations)
+
+        openModal(session, date, reservations); // Pass session, date, and reservations to openModal
+      });
     });
     selectedDateContainer.appendChild(sessionsList);
   }
@@ -117,7 +126,7 @@ function addSelectedSeatsToReservation(date, session, selectedSeats, reservation
   }
 
   const existingSeats = reservationData.reservations[date][session];
-  reservationData.reservations[date][session] = [...existingSeats, ...selectedSeats];
+  reservationData.reservations[date][session] = [...existingSeats, ...selectedSeats].filter(onlyUnique);
 }
 
 // Add an event listener for the booking button
@@ -127,15 +136,28 @@ bookButton?.addEventListener("click", () => {
     (seat) => seat.textContent
   );
 
-  console.log({ selectedDate, selectedSeats, selectedSession });
+  console.log('before', { selectedDate, selectedSeats, selectedSession, reservationData });
 
   addSelectedSeatsToReservation(selectedDate, selectedSession, selectedSeats, reservationData);
 
   // Save the updated reservation data to cookies
   saveReservationToCookies(reservationData);
 
+  createTabs();
+  console.log('after', { selectedDate, selectedSeats, selectedSession, reservationData });
+
   // Close the modal window after booking
   closeModal();
 });
+
+/**
+ * TODO: move clicks here to the global body element
+ * TODO: dispatch custom event when setting reservations
+ *
+ * @param {*} params
+ */
+function setEventListeners(params) {
+
+}
 
 createTabs();

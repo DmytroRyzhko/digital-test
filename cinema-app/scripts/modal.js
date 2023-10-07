@@ -1,3 +1,6 @@
+import { dispatchCustomEvent } from './helpers.js';
+
+
 const MAX_SEATS_QUANTITY = 25
 
 const modal = document.getElementById("myModal");
@@ -52,6 +55,7 @@ export function openModal(session, date, reservations) {
 * Closes the modal window.
 */
 export function closeModal() {
+  dispatchCustomEvent(modal, 'on-modal-close',)
   modal.style.display = "none";
 }
 

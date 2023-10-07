@@ -34,10 +34,7 @@ export function generateDates() {
 export function generateSessions() {
   const now = new Date();
   const interval = 2; // Interval between sessions in hours
-  const minutesInHour = 60;
   const currentHour = now.getHours();
-  const currentMinute = now.getMinutes();
-  console.log({ currentHour, currentMinute });
   let startTime;
 
   const availableSessions = {};
@@ -46,25 +43,16 @@ export function generateSessions() {
   generateDates().forEach((date, index) => {
     // Check if it's the first date (today)
     if (index === 0) {
-      // Calculate the nearest session start time for today
-      if (currentMinute >= 30) {
-        // If the current minute is 30 or more, round up to the next even hour
-        startTime = currentHour + 2;
-      } else {
-        // Otherwise, round up to the next odd hour
-        startTime = currentHour + 1;
-      }
-
       // Ensure that the start time is within the range [10, 20]
-      if (startTime < 10) {
-        startTime = 10;
-      } else if (startTime > 20) {
-        // Skip today's date if it's after 20:00
-        return;
-      }
+      startTime = findNearestSessionHour(currentHour)
     } else {
       // For other dates, start from 10:00
       startTime = 10;
+    }
+
+    // Skip today's date if it's after 20:00
+    if (!startTime) {
+      return
     }
 
     const endTime = 20; // End time for sessions
@@ -81,6 +69,7 @@ export function generateSessions() {
 
   return availableSessions;
 }
+
 /**
  * Formats a date string in a human-readable format.
  * @param {string} dateString - The date string in "YYYY-MM-DD" format.
@@ -116,4 +105,77 @@ export function isToday(date) {
  */
 export function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;
+}
+
+/**
+ * Removes the specified class from all sibling elements of the given element.
+ * @param {HTMLElement} element - The element whose siblings should have the class removed.
+ * @param {string} className - The class to be removed from sibling elements.
+ */
+export function removeSiblings(element, className = 'active') {
+  if (!element) {
+    return
+  }
+
+  // Get the parent element to access its children (siblings)
+  const parent = element.parentElement;
+
+  // Get all children of the parent element
+  const siblings = Array.from(parent.children);
+
+  // Remove the specified class from all sibling elements, except the given element
+  siblings.forEach((sibling) => {
+    if (sibling !== element) {
+      sibling.classList.remove(className);
+    }
+  });
+}
+
+/**
+ * Dispatches a custom event on the specified element with the given event name and optional data.
+ * @param {HTMLElement} element - The element on which to dispatch the custom event.
+ * @param {string} eventName - The name of the custom event.
+ * @param {Object} eventData - Optional data to include with the event (default is an empty object).
+ */
+export function dispatchCustomEvent(element, eventName, eventData = {}) {
+  // Create a new custom event with the specified name and data
+  const customEvent = new CustomEvent(eventName, {
+    detail: eventData,
+    bubbles: true, // Event bubbles up the DOM tree
+    cancelable: true, // Event is cancelable
+  });
+
+  // Dispatch the custom event on the specified element
+  element.dispatchEvent(customEvent);
+}
+
+
+/**
+ * Finds the nearest available session hour from the specified array of session hours.
+ * @param {number} currentHour - The current hour.
+ * @returns {number|null} The nearest available session hour, or null if the current hour is 20 or greater.
+ */
+function findNearestSessionHour(currentHour) {
+  const sessionHours = [10, 12, 14, 16, 18, 20];
+
+  // Sort the session hours in ascending order
+  sessionHours.sort((a, b) => a - b);
+
+  if (currentHour < 10) {
+    return 10;
+  } else if (currentHour >= 20) {
+    return null;
+  } else {
+    let nearestSessionHour = sessionHours[0]; // The first hour in the range
+
+    for (const hour of sessionHours) {
+      if (hour > currentHour) {
+        // Found an hour greater than the current hour, set it as the nearest and break the loop
+        nearestSessionHour = hour;
+        break;
+      }
+    }
+
+    return nearestSessionHour;
+  }
 }

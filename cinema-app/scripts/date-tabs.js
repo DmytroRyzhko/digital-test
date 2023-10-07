@@ -1,6 +1,28 @@
-import { getReservationFromCookies, saveReservationToCookies } from './cookies.js';
-import { formatDate, generateDates, generateSessions, isToday, onlyUnique } from './helpers.js';
-import { MAX_SEATS_QUANTITY, bookButton, closeModal, openModal, seatsContainer, selectedDate, selectedSession } from './modal.js';
+import {
+  getReservationFromCookies,
+  saveReservationToCookies,
+} from "./cookies.js";
+
+import {
+  formatDate,
+  generateDates,
+  generateSessions,
+  isToday,
+  onlyUnique,
+  removeSiblings,
+} from "./helpers.js";
+
+import {
+  MAX_SEATS_QUANTITY,
+  bookButton,
+  closeModal,
+  openModal,
+  seatsContainer,
+  selectedDate,
+  selectedSession,
+} from "./modal.js";
+
+const ACTIVE_TAB_CLASS = "active";
 
 const dateTabsContainer = document.getElementById("date-tabs");
 const selectedDateContainer = document.getElementById("selected-date");
@@ -11,40 +33,43 @@ let reservationData = {
   reservations: {}, // This will store seat reservations
 };
 
+let activeTab = null;
+
 // Check if there are reservation data in cookies
 const existingReservationData = getReservationFromCookies();
-console.log('existingReservationData', existingReservationData)
+console.log("existingReservationData", existingReservationData);
 
 if (existingReservationData) {
   // If reservation data is found in cookies, use it
   // You can populate the UI with the saved reservation data here
-  reservationData = JSON.parse(JSON.stringify(existingReservationData))
-
+  reservationData = JSON.parse(JSON.stringify(existingReservationData));
 } else {
   // If no reservation data is found, generate new data
   // Use the existing methods to generate dates and sessions
   const availableDates = generateDates();
   const availableSessions = generateSessions();
 
-  reservationData = {
-    dates: availableDates,
-    sessions: availableSessions,
-    reservations: {}, // This will store seat reservations
-  };
+  reservationData.dates = availableDates;
+  reservationData.sessions = availableSessions;
 
   // Save the initial reservation data to cookies
   saveReservationToCookies(reservationData);
 }
 
 /**
-* Generates and displays date tabs for ticket booking.
-*/
+ * Generates and displays date tabs for ticket booking.
+ */
 function createTabs() {
-  console.log('createTabs DATES', reservationData.dates)
+  console.log("createTabs DATES", reservationData.dates);
+
   reservationData.dates?.forEach((date) => {
     const tab = document.createElement("button");
     tab.textContent = formatDate(date);
     tab.addEventListener("click", () => {
+      removeSiblings(tab, ACTIVE_TAB_CLASS);
+      tab.classList.add(ACTIVE_TAB_CLASS);
+      tab.dataset.activeDate = date;
+      activeTab = tab;
       selectDate(date);
     });
     dateTabsContainer.appendChild(tab);
@@ -56,7 +81,11 @@ function createTabs() {
  * @param {string} date - The selected date in "YYYY-MM-DD" format.
  */
 function selectDate(date) {
-  if (!selectedDateContainer) {
+
+  console.log('ACTIVE', activeTab)
+
+  console.log('selectDate(date)', date)
+  if (!selectedDateContainer || !date) {
     return;
   }
 
@@ -64,9 +93,11 @@ function selectDate(date) {
 
   const sessionsForDate = getSessionsForDate(date);
 
+  console.log('reservationData', reservationData)
+  console.log('reservationData.sessions[date]', reservationData.sessions[date])
+
   const selectedDateElement = document.createElement("h2");
   selectedDateElement.textContent = `Selected Date: ${formatDate(date)}`;
-  selectedDateContainer.appendChild(selectedDateElement);
 
   if (sessionsForDate.length === 0) {
     // If there are no available sessions for the selected date
@@ -74,7 +105,8 @@ function selectDate(date) {
       // Check if it's today's date
       selectedDateContainer.innerHTML = "No available sessions for today.";
     } else {
-      selectedDateContainer.innerHTML = "No available sessions for selected date.";
+      selectedDateContainer.innerHTML =
+        "No available sessions for selected date.";
     }
   } else {
     // If there are available sessions, display them
@@ -85,21 +117,25 @@ function selectDate(date) {
       const sessionItem = document.createElement("li");
       sessionItem.textContent = session;
       const reservations = reservationData.reservations[date]?.[session] || [];
+      console.log("reservations before", reservations);
 
       if (reservations.length >= MAX_SEATS_QUANTITY) {
-        sessionItem.className = 'booked'
+        sessionItem.className = "booked";
       }
 
       sessionsList.appendChild(sessionItem);
 
-      sessionItem.addEventListener('click', () => {
-        console.log('selectDate click reservations', reservations)
+      sessionItem.addEventListener("click", () => {
+        // const reservations = reservationData.reservations[date]?.[session] || [];
+        console.log("reservations after", reservations);
 
         openModal(session, date, reservations); // Pass session, date, and reservations to openModal
       });
     });
     selectedDateContainer.appendChild(sessionsList);
   }
+
+  selectedDateContainer.appendChild(selectedDateElement);
 }
 
 /**
@@ -115,9 +151,9 @@ function getSessionsForDate(date) {
  * @param {string} date - The selected date in "YYYY-MM-DD" format.
  * @param {string} session - The selected session time in "HH:00" format.
  * @param {Array<string>} selectedSeats - An array of selected seat numbers.
- * @param {Object} reservationData - The reservation data object.
+//  * @param {Object} reservationData - The reservation data object.
  */
-function addSelectedSeatsToReservation(date, session, selectedSeats, reservationData) {
+function addSelectedSeatsToReservation(date, session, selectedSeats) {
   if (!reservationData.reservations[date]) {
     reservationData.reservations[date] = {};
   }
@@ -126,25 +162,37 @@ function addSelectedSeatsToReservation(date, session, selectedSeats, reservation
   }
 
   const existingSeats = reservationData.reservations[date][session];
-  reservationData.reservations[date][session] = [...existingSeats, ...selectedSeats].filter(onlyUnique);
+  reservationData.reservations[date][session] = [
+    ...existingSeats,
+    ...selectedSeats,
+  ].filter(onlyUnique);
 }
 
 // Add an event listener for the booking button
 bookButton?.addEventListener("click", () => {
   // Get the list of selected seats
-  const selectedSeats = Array.from(seatsContainer.querySelectorAll(".selected")).map(
-    (seat) => seat.textContent
-  );
+  const selectedSeats = Array.from(
+    seatsContainer.querySelectorAll(".selected")
+  ).map((seat) => seat.textContent);
 
-  console.log('before', { selectedDate, selectedSeats, selectedSession, reservationData });
+  console.log("before", {
+    selectedDate,
+    selectedSeats,
+    selectedSession,
+    reservationData,
+  });
 
-  addSelectedSeatsToReservation(selectedDate, selectedSession, selectedSeats, reservationData);
+  addSelectedSeatsToReservation(selectedDate, selectedSession, selectedSeats);
 
   // Save the updated reservation data to cookies
   saveReservationToCookies(reservationData);
 
-  createTabs();
-  console.log('after', { selectedDate, selectedSeats, selectedSession, reservationData });
+  console.log("after", {
+    selectedDate,
+    selectedSeats,
+    selectedSession,
+    reservationData,
+  });
 
   // Close the modal window after booking
   closeModal();
@@ -154,10 +202,18 @@ bookButton?.addEventListener("click", () => {
  * TODO: move clicks here to the global body element
  * TODO: dispatch custom event when setting reservations
  *
- * @param {*} params
  */
-function setEventListeners(params) {
+function setEventListeners() {
+  window.addEventListener("on-modal-close", (e) => {
+    console.log("on-modal-close");
 
+    if (!activeTab) {
+      return;
+    }
+
+    selectDate(activeTab.dataset.activeDate);
+  });
 }
 
 createTabs();
+setEventListeners();

@@ -11,8 +11,11 @@
 }
 
 .modal-content {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
   background-color: #fff;
-  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -51,4 +54,13 @@
 .reserved {
   opacity: 0.7;
   pointer-events: none;
+}
+
+.modal h1,
+.modal h2,
+.modal h3,
+.modal h4,
+.modal h5,
+.modal h6 {
+  color: #1a1a1a;
 }

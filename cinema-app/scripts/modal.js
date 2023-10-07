@@ -2,10 +2,13 @@ import { dispatchCustomEvent } from './helpers.js';
 
 
 const MAX_SEATS_QUANTITY = 25
+const VISIBLE_CLASS = 'visible'
 
 const modal = document.getElementById("myModal");
 const seatsContainer = document.getElementById("seats-container");
 const bookButton = document.getElementById("book-button");
+const overlay = document.getElementById("overlay");
+const successMessage = document.querySelector(".success-message");
 
 let selectedDate = "";
 let selectedSession = "";
@@ -23,7 +26,7 @@ export function openModal(session, date, reservations) {
     return;
   }
 
-  modal.style.display = "block";
+  modal.classList.add(VISIBLE_CLASS)
 
   // Clear the seats container content
   seatsContainer.innerHTML = "";
@@ -55,21 +58,66 @@ export function openModal(session, date, reservations) {
 * Closes the modal window.
 */
 export function closeModal() {
+  if (!modal) {
+    return;
+  }
+
   dispatchCustomEvent(modal, 'on-modal-close',)
-  modal.style.display = "none";
+  modal.classList.remove(VISIBLE_CLASS);
 }
 
-// Add an event listener for closing the modal window
-modal.querySelector(".close").addEventListener("click", () => {
-  closeModal();
-});
+/**
+ * Close the modal when clicking outside of it.
+ * @param {Event} event - The click event.
+ */
+export function closeModalOnOutsideClick(event) {
+  if (!modal || modal.style.display === 'none') {
+    return;
+  }
+
+  if (!(event.target.closest('.modal-content'))) {
+    // Clicked outside of modal content, close the modal
+    closeModal();
+  }
+}
+
+/**
+ * Function to display the success message.
+ */
+export function showSuccessMessage() {
+
+  if (!successMessage) {
+    return
+  }
+
+  successMessage.classList.add(VISIBLE_CLASS)
+  overlay.classList.add(VISIBLE_CLASS)
+
+  successMessage.addEventListener("click", () => {
+    successMessage.classList.remove(VISIBLE_CLASS);
+    overlay.classList.remove(VISIBLE_CLASS)
+  });
+
+  overlay.addEventListener("click", () => {
+    successMessage.classList.remove(VISIBLE_CLASS);
+    overlay.classList.remove(VISIBLE_CLASS)
+  });
+
+  /**
+   * Automatically hide the success message after a specified time.
+   */
+  setTimeout(() => {
+    successMessage.classList.remove(VISIBLE_CLASS);
+  }, 5000); // 5000 milliseconds (5 seconds)
+}
+
 
 /**
 * Toggles the state of a selected/cancelled seat.
 * @param {HTMLElement} seat - The seat element.
 */
 export function toggleSeat(seat) {
-  seat.classList.toggle("selected");
+  seat?.classList.toggle("selected");
 }
 
 export { MAX_SEATS_QUANTITY, bookButton, modal, seatsContainer, selectedDate, selectedSession };

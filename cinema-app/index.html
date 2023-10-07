@@ -8,15 +8,6 @@
   </head>
   <body>
     <div id="app">
-      <div id="date-picker">
-        <!-- Селектор для вибору дати -->
-      </div>
-      <div id="session-list">
-          <!-- Список сеансів для обраної дати -->
-      </div>
-      <div id="seats">
-          <!-- Місця для обраного сеансу -->
-      </div>
       <div id="date-tabs">
         <!-- Тут будуть таби для дат -->
       </div>
@@ -26,7 +17,7 @@
     </div>
 
 
-    <!-- Модальне вікно -->
+    <!-- Модальне вікно з вибором місць -->
     <div id="myModal" class="modal">
       <span class="close">&times;</span>
       <div class="modal-content">
@@ -37,6 +28,14 @@
           <button id="book-button">Забронювати</button>
       </div>
     </div>
+
+    <!-- Модальне вікно при успішному бронюванні -->
+    <div class="success-message">
+      Ваше бронювання пройшло успішно!
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>

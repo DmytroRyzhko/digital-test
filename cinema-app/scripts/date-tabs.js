@@ -16,10 +16,12 @@ import {
   MAX_SEATS_QUANTITY,
   bookButton,
   closeModal,
+  closeModalOnOutsideClick,
   openModal,
   seatsContainer,
   selectedDate,
   selectedSession,
+  showSuccessMessage
 } from "./modal.js";
 
 const ACTIVE_TAB_CLASS = "active";
@@ -125,9 +127,8 @@ function selectDate(date) {
 
       sessionsList.appendChild(sessionItem);
 
-      sessionItem.addEventListener("click", () => {
-        // const reservations = reservationData.reservations[date]?.[session] || [];
-        console.log("reservations after", reservations);
+      sessionItem.addEventListener("click", (e) => {
+        e.stopPropagation()
 
         openModal(session, date, reservations); // Pass session, date, and reservations to openModal
       });
@@ -196,23 +197,24 @@ bookButton?.addEventListener("click", () => {
 
   // Close the modal window after booking
   closeModal();
+
+  showSuccessMessage();
 });
 
 /**
- * TODO: move clicks here to the global body element
- * TODO: dispatch custom event when setting reservations
+ *
  *
  */
 function setEventListeners() {
   window.addEventListener("on-modal-close", (e) => {
-    console.log("on-modal-close");
-
     if (!activeTab) {
       return;
     }
 
     selectDate(activeTab.dataset.activeDate);
   });
+
+  window.addEventListener("click", (event) => closeModalOnOutsideClick(event));
 }
 
 createTabs();

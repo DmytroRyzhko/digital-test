@@ -26,6 +26,8 @@ export function openModal(session, date, reservations) {
     return;
   }
 
+  bookButton.disabled = !getSelectedSeats().length ? true : false
+
   modal.classList.add(VISIBLE_CLASS)
 
   // Clear the seats container content
@@ -44,6 +46,7 @@ export function openModal(session, date, reservations) {
       seat.addEventListener("click", () => {
         // Event handler for seat selection
         toggleSeat(seat);
+        bookButton.disabled = !getSelectedSeats().length ? true : false
       });
     }
 
@@ -93,11 +96,6 @@ export function showSuccessMessage() {
   successMessage.classList.add(VISIBLE_CLASS)
   overlay.classList.add(VISIBLE_CLASS)
 
-  successMessage.addEventListener("click", () => {
-    successMessage.classList.remove(VISIBLE_CLASS);
-    overlay.classList.remove(VISIBLE_CLASS)
-  });
-
   overlay.addEventListener("click", () => {
     successMessage.classList.remove(VISIBLE_CLASS);
     overlay.classList.remove(VISIBLE_CLASS)
@@ -108,7 +106,7 @@ export function showSuccessMessage() {
    */
   setTimeout(() => {
     successMessage.classList.remove(VISIBLE_CLASS);
-  }, 5000); // 5000 milliseconds (5 seconds)
+  }, 3000); // (3 seconds)
 }
 
 
@@ -119,6 +117,17 @@ export function showSuccessMessage() {
 export function toggleSeat(seat) {
   seat?.classList.toggle("selected");
 }
+
+/**
+ * Gets the list of selected seats.
+ * @returns {Array} An array containing the selected seats.
+ */
+export function getSelectedSeats() {
+  return Array.from(seatsContainer?.querySelectorAll(".selected")).map(
+    (seat) => seat.textContent
+  );
+}
+
 
 export { MAX_SEATS_QUANTITY, bookButton, modal, seatsContainer, selectedDate, selectedSession };
 

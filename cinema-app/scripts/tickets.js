@@ -1,5 +1,5 @@
 // An array to store ticket data
-const tickets = [];
+let tickets = [];
 
 /**
  * Adds a new ticket to the array.

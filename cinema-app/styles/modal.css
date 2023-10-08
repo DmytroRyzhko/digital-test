@@ -1,5 +1,5 @@
 .modal {
-  /* display: none; */
+  display: block;
   position: fixed;
   z-index: 999;
   left: 0;
@@ -72,7 +72,7 @@
 }
 
 .success-message {
-  /* display: none; */
+  display: block;
   background-color: #4caf50;
   color: white;
   text-align: center;
@@ -88,6 +88,7 @@
 }
 
 .overlay {
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -101,9 +102,10 @@
 }
 
 .visible {
-  /* display: block; */
+  display: block;
   opacity: 1;
   visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 #seats-container {

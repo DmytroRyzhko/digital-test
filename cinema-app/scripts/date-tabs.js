@@ -1,6 +1,9 @@
 /**
  * Component: DateTabs
  * ------------------------------------------------------------------------------
+ * Main file for the Cinema Seat Reservation Application.
+ * This component manages the rendering of date tabs, seat reservations,
+ * and related functionalities.
  *
  * @namespace DateTabs
 */
@@ -35,7 +38,7 @@ import {
   selectedDate,
   selectedSession,
   showSuccessMessage
-} from "./modal.js";
+} from "./booking-modal.js";
 
 export default (config) => {
 

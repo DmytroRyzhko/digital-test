@@ -4,7 +4,7 @@ import { dispatchCustomEvent } from './helpers.js';
 const MAX_SEATS_QUANTITY = 25
 const VISIBLE_CLASS = 'visible'
 
-const modal = document.getElementById("myModal");
+const modal = document.getElementById("bookingModal");
 const seatsContainer = document.getElementById("seats-container");
 const bookButton = document.getElementById("book-button");
 const overlay = document.getElementById("overlay");

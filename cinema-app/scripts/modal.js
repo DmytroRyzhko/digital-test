@@ -20,8 +20,6 @@ let selectedSession = "";
  * @param {object} reservations - The reservations for the selected date and session.
  */
 export function openModal(session, date, reservations) {
-  console.log('openModal reservations', reservations)
-
   if (!modal || !seatsContainer) {
     return;
   }
